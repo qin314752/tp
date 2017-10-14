@@ -1,0 +1,1 @@
+a:9:{s:8:"provider";s:1:"1";s:6:"APPIDT";s:18:"wxc297cc622affa03e";s:6:"MCHIDT";s:10:"1279343601";s:4:"KEYT";s:32:"64bee39e11dccf7050f2f7c08c57a710";s:10:"APPSECRETT";s:32:"ba0586b87819ef7ace90407e569381a7";s:6:"APPIDK";s:0:"";s:6:"MCHIDK";s:0:"";s:4:"KEYK";s:0:"";s:10:"APPSECRETK";s:0:"";}

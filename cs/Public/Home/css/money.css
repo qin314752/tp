@@ -1,0 +1,104 @@
+.button_menu{
+	width: 100%;
+	height: 4.5rem;
+	position: fixed;
+	background-color: #FFF;
+	position: fixed;
+	z-index: 4000;
+	opacity:1;
+	bottom: 0rem;
+	border-top: 1px solid #EFEEED;
+}
+.menu_list{
+	width: 25%;
+	height: 100%;
+	margin-top: 0.5rem;
+	float: left;
+}
+
+.menu_img{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	margin: 0rem auto;
+
+}
+.menu_img img{
+	width:3.5rem;
+	height:3.2rem;
+}
+
+
+
+
+
+
+
+.recharge{
+	/*border: 1px solid red;*/
+	width: 90%;
+	height: 100%;
+	margin-left: 5%;
+	margin-top: 1rem;
+	
+}
+.recharge_money{
+	
+
+}
+.recharge_money div{
+	font-size: 2rem;
+	font-weight:500;
+
+}
+.money_img{
+	height: 3.1rem;
+	margin-top: 1rem;
+	/*border: 1px solid blue;*/
+
+}
+.money_img div{
+	float: left;
+	/*border: 1px solid blue;*/
+	width: 3rem;
+	height: 3rem;
+	line-height: 4rem;
+	font-size: 3rem;
+	font-weight:bold;
+
+}
+.money_img input{
+	/*border: 1px solid blue;*/
+	font-weight:bold;
+	float: left;
+	width: 80%;
+	height: 4rem;
+	margin-top: -1rem;
+	font-size: 3.5rem;
+	padding-top: 1rem;
+	border: none;
+	outline:none;
+}
+.money_img hr{
+	width: 98%;
+	border: 1px solid #000;
+}
+.recharge_money button{
+	width: 35%;
+	height: 3.8rem;
+	background-color: #DC1540;
+	color: #fff;
+	font-size: 2rem;
+	border:none;
+	outline:none;
+	border-radius: 0.4rem;
+	margin:1.5rem 30%;
+}
+.recharge_explain div{
+
+	font-size: 1.8rem;
+	color: #9A9999;
+	margin-top: 0.3rem;
+	font-size: 1.6rem;
+}
+

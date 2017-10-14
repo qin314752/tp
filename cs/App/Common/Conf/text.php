@@ -1,0 +1,1 @@
+s:41:"'URL_MODULE_MAP'=>array('admin'=>'admin')";

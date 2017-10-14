@@ -1,0 +1,1 @@
+a:3:{s:10:"regsuccess";s:86:"尊敬的#USERANEM#用户，您的验证码为#CODE#，有效期3分钟【天舒堂】";s:9:"payonline";s:100:"尊敬的 #USERANEM# 用户您好，您在 #DATE# 在线充值的 #MONEY#元已到帐【天舒堂】";s:8:"withdraw";s:140:"#USERANEM#您好，您在#DATE#购买#CROWDID#产品成功。产品金额#MONEY#元，有效期为#TIME#，确认码为#CODE#【天舒堂】";}

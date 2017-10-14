@@ -1,0 +1,1 @@
+a:9:{s:8:"provider";s:1:"1";s:2:"sn";s:17:"SDK-BJR-010-00724";s:3:"pwd";s:11:"4-fD82-4bbD";s:11:"smtp_server";s:12:"smtp.163.com";s:9:"smtp_port";s:2:"25";s:9:"smtp_user";s:17:"qin314752@163.com";s:7:"smtp_pw";s:9:"qin314752";s:9:"smtp_name";s:9:"天舒堂";s:10:"smtp_title";s:15:"天舒堂测试";}
