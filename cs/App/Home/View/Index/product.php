@@ -9,25 +9,8 @@
 			function(res){
 				var msg = res.err_msg; 
 				if (msg == "get_brand_wcpay_request:ok") { 
-	    			location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/shopping";//设置接收微信支付异步通知回调地址
-				 } else { 
-		       	 	if (msg == "get_brand_wcpay_request:cancel") { 
-		          		var err_msg = "您取消了微信支付"; 
-		        		location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/{$error}";//设置接收微信支付异步通知回调地址
-		        	} else if (res.err_code == 3) { 
-		           		var err_msg = "您正在进行跨号支付正在为您转入扫码支付......"; 
-		        		location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/{$error}";//设置接收微信支付异步通知回调地址
-		        	} else if (msg == "get_brand_wcpay_request:fail") { 
-		           		var err_msg = "微信支付失败错误信息：" + res.err_desc; 
-		        		location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/{$error}";//设置接收微信支付异步通知回调地址
-		        	} else { 
-		           		var err_msg = msg + "" + res.err_desc; 
-		        		location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/{$error}";//设置接收微信支付异步通知回调地址
-	        		} 
-			 	}
-				// WeixinJSBridge.log(res.err_msg);
-
-				// alert(res.err_code+res.err_desc+res.err_msg);
+	    			location.href = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/orderquery";//设置接收微信支付异步通知回调地址
+				 }
 			}
 		);
 	}
@@ -48,12 +31,16 @@
 	</script>
 	<div class="recharge_list">
 		<div align="center" style="font-size: 1.8rem;border-bottom: 1px solid #CBCBCB;padding:0.5rem 0rem;" >支付选择</div>
-		<div align="center" class="pay_money">￥<span>{$money}</span></div>
-		<div -align="center" class="pay_money_user" style="color:#000;">支付账号 <span style="color:#000;">13269822845</span></div>
+		<div align="center" class="pay_money">￥<span id="money">{$money}</span></div>
+		<div class="pay_money_user" style="color:#000;">支付账号 <span style="color:#000;"><?php echo session('user_phone')?></span></div>
+		<div class="pay_money_user" style="color:#000;" onclick="give_data()">优惠券 <i style="font-size: 1.2rem;">(不能和会员折扣公用)</i> <span id="give_text" style="color:#000;">使用></span></div>
 		<div class="pay_money_user">余额支付 <div class="pay_color" ><div class="pay_color_w" onclick="pay_money(this,'pay_y')"  -id="pay_y" style="background-color: #50B34B;"></div></div></div>
 		<div class="pay_money_user">微信支付 <div class="pay_color" ><div class="pay_color_w" onclick="pay_money(this,'pay_w')"  -id="pay_w" ></div></div></div>
 		<button type="button" id='dispose'  onclick='dispose()'>下一步</button>
+		<form id="give_data" action="__URL__/recharge_money" method="get">
+		<input type="hidden" id="give_id" name="give_id" value="" />
 		<input type="hidden" name="pay_data" value="{$pay_y}">
+		</form>
 	</div>
 
 		<div class="succ_click" style="display:none">
@@ -83,76 +70,72 @@
 
         </div>
         </div>
-<script type="text/javascript">
-$(function() {
-　　if (window.history && window.history.pushState) {
-　　$(window).on('popstate', function () {
-　　window.history.pushState('forward', null, '#');
-　　window.history.forward(1);
-　　});
-　　}
-　　window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
-　　window.history.forward(1);
-　　})
-</script>
+<input type="hidden" name="product" value="{$id}">
+<input type="hidden" name="product_money" value="{$money}">
 <script type="text/javascript">
 
 function fresh_page(obj){
 	if(obj){
 		window.location.reload();
 	}else{
-		location.href = 'http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/shopping';//设置接收微信支付异步通知回调地址
+		location.href = 'http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php/Home/Index/shopping';
 	}
 } 
 function msgs(data,o,s){
-layer.msg(data,{time:3000},{icon:s});
+layer.open({title: false,closeBtn:0,btn:0,time:2000,icon:s,content:data});
 setTimeout('fresh_page('+o+')',1000);
 }
-	function payment(obj){
-		if(obj){
-			 var string = $('#payPassword_rsainput').val();
-			$.post('__URL__/pay_password',{pay_password:string},function(str){
-				if(str==1){
-					var datas = $('[name=pay_data]').val();
-					$.post('__URL__/payment',{data:datas},function(data){
-						if(data=='余额额不足'){
-							msgs('余额额不足','1',0);
-						}else if(data = '成功'){
-							msgs('支付成功','',1);
-						}else{
-							msgs('密码错误',1,2);
-						}
-					})
-				}else if(str==0) {
-					msgs('密码错误','1',2);
-					
-				}else{
-					msgs('系统故障','1',0);
-				}
-			});
-		}else{
-			 var string = $('#payPassword_rsainput').val();
-			$.get('__URL__/pay_password?pay_password='+string,function(str){
-				if(str==1){
-					var datas = $('[name=pay_data]').val();
-					$.post('__URL__/payment',{data:datas},function(data){
-						if(data=='余额额不足'){
-							msgs('余额额不足','1',0);
-						}else if(data = '成功'){
-							msgs('支付成功','',1);
-						}else{
-							msgs('密码错误',1,2);
-						}
-					})
-				}else if(str == 0){
-					msgs('设置失败',1,2);
-				}else{
-					msgs('系统故障',1,0);
-				}
-			});
-		}
-
+function payment(obj){
+	if(obj){
+		 var string = $('#payPassword_rsainput').val();
+		$.post('__URL__/pay_password',{pay_password:string},function(str){
+			if(str==1){
+				var datas = $('[name=pay_data]').val();
+				var give_id = $('#give_id').val();
+				$.post('__URL__/payment',{data:datas+'@give_id='+give_id},function(data){
+					if(data=='余额额不足'){
+						msgs('余额额不足','1',0);
+					}else if(data == '成功'){
+						msgs('支付成功','',1);
+					}else if(data == '失败'){
+						msgs('支付失败',1,2);
+					}else{
+						msgs('密码错误',1,2);
+					}
+				});
+			}else if(str==0) {
+				msgs('密码错误','1',2);
+				
+			}else{
+				msgs('系统故障','1',0);
+			}
+		});
+	}else{
+		 var string = $('#payPassword_rsainput').val();
+		$.get('__URL__/pay_password?pay_password='+string,function(str){
+			if(str==1){
+				var datas = $('[name=pay_data]').val();
+				var give_id = $('#give_id').val();
+				$.post('__URL__/payment',{data:datas+'@give_id='+give_id},function(data){
+					if(data=='余额额不足'){
+						msgs('余额额不足','1',0);
+					}else if(data == '成功'){
+						msgs('支付成功','',1);
+					}else if(data == '失败'){
+						msgs('支付失败',1,2);
+					}else{
+						msgs('密码错误',1,2);
+					}
+				})
+			}else if(str == 0){
+				msgs('设置失败',1,2);
+			}else{
+				msgs('系统故障',1,0);
+			}
+		});
 	}
+
+}
 function dispose(){
 	$('.succ_click').css('display','block');
 }
@@ -163,12 +146,42 @@ function pay_money(obj,id='pay_y'){
 	if(id=='pay_y'){
 		$('#dispose').attr('onclick','dispose()');
 	}else{
-		$('#dispose').attr('onclick','callpay()');
+		$('#dispose').attr('onclick','pay()');
 	}
+}
+function pay(){
+	var money = $('#money').text();
+	if(money==0){
+		dispose();
+	}else{
+		var give_id = $('#give_id').val();
+		if(give_id){
+			$('#give_data').submit();
+		}else{
+			setTimeout("callpay()",500);
+		}
+	}
+
 }
 $('#succ_click').click(function(){
 	$('.succ_click').css('display','none');
 });
+function give_data(){
+	var id = $('[name=product]').val();
+	var money = $('[name=product_money]').val();
+		layer.open({
+		  type: 2,
+		  title: false,
+		  closeBtn: 0, 
+		  shade: [0],
+		  scrollbar:true,
+		  area: ['100%', '100%'],
+		  anim: 0,
+		  content: ['__URL__/give_data?id='+id+'&money='+money],
+		});   
+	
+}
+
 </script>
 
 <script src="__PUBLIC__/pay/jquery-1.8.3.min.js" type="text/javascript"></script>
@@ -244,4 +257,3 @@ var payPassword = $("#payPassword_container"),
 	
 </script>
     
-

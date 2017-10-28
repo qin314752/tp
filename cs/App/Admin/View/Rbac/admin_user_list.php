@@ -52,9 +52,9 @@
 						<td class="td-manage">
 						
 						<if condition="$user_data['status'] eq 1">
-						<a style="text-decoration:none" onClick="admin_stop(this,'{$user_data.id}','{$user_data.status}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+						<a style="text-decoration:none" onClick="admin_stop(this,'{$user_data.id}','{$user_data.status}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> 
 						<else />
-						<a style="text-decoration:none" onClick="admin_stop(this,'{$user_data.id}','{$user_data.status}')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>
+						<a style="text-decoration:none" onClick="admin_stop(this,'{$user_data.id}','{$user_data.status}')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
 						</if>
 						<a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin_edit?id={$user_data.id}','{$user_data.id}','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
 						<a title="删除" href="javascript:;" onclick="admin_del(this,'{$user_data.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>

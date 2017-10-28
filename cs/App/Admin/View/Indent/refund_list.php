@@ -40,8 +40,6 @@
 						<th>退款入账账户</th>
 						<th>退款状态</th>
 						<th>退款成功时间</th>
-						<th>业务结果</th>
-						<th>订单金额</th>
 						<th>微信退款单号</th>
 						<th>微信订单号</th>
 						
@@ -60,8 +58,6 @@
 						<th width="130"><?php echo $value['refund_recv_accout_0']; ?></th>
 						<th width="100"><?php echo $value['refund_status_0']; ?></th>
 						<th width="60"><?php echo $value['refund_success_time_0']; ?></th>
-						<th width="80"><?php echo $value['result_code']; ?></th>
-						<th width="100"><?php echo $value['total_fee']/100; ?>元</th>
 						<th width="100"><?php echo $value['refund_id_0']; ?></th>
 						<th width="100"><?php echo $value['transaction_id']; ?></th>
 					<?php }?>

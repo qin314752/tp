@@ -71,7 +71,7 @@
 							<div class="formControls col-xs-8 col-sm-3">
 								<textarea name="withdraw"  class="textarea_color" >{$smstxt['withdraw']}</textarea> 
 							</div>
-							<span class="c-orange">#USERANEM#表示用户名,#DATE#表示提现日期，#MONEY#表示提现金额</span>
+							<span class="c-orange">#USERANEM#表示用户名,#DATE#表示提现日期，#MONEY#表示金额</span>
 						</div>
 	
 					</div>

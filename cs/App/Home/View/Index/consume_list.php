@@ -5,18 +5,22 @@
 		 <div id="con_left"  class="color" onclick="con_click(this)">充值&nbsp;&nbsp;<div></div></div>
 		 <div id="con_right" class="color" onclick="con_click(this)">&nbsp;&nbsp;消费</div> 
 		</div>
-		
-<?php if(!$recharge){?> <div class="product_more"><img src="__PUBLIC__/Home/img/recharge.jpg"></div><?php }else{foreach ($recharge as $key => $value) {?>
+<div class="displays con_left" >
 
-		<div class="consume_money con_left "  >
+<?php if(!$recharge){?> <div class="product_more con_left"><img src="__PUBLIC__/Home/img/recharge.jpg"></div><?php }else{foreach ($recharge as $key => $value) {?>
+
+		<div class="consume_money"  >
 			<div class="consume_left">
 				<div class="consume_top">充值</div>
 				<div class="consume_time"><?php echo date('Y/m/d H:i:s',$value['time_end']);?></div>
 			</div>
 			<div class="consume_but">+<?php echo $value['cash_fee'];?>元</div>
 		</div>
-<?php }} if(!$indent){?> <div class="product_more"><img src="__PUBLIC__/Home/img/indent.jpg"></div><?php }else{ foreach ($indent as $key => $value) {?>
-		<div class="consume_money con_right " style="display: none">
+<?php }}?>
+</div>
+<div class="displays con_right" style="display: none">
+<?php if(!$indent){?> <div class="product_more "><img src="__PUBLIC__/Home/img/indent.jpg"></div><?php }else{ foreach ($indent as $key => $value) {?>
+		<div -class="consume_money" >
 			<div class="consume_left">
 				<div class="consume_top">消费</div>
 				<div class="consume_time"><?php echo date('Y/m/d H:i:s',$value['time_end']);?></div>
@@ -25,7 +29,8 @@
 		</div>
 		
 <?php }}?>
-		
+</div>
+
 <include file="Common:foot" />
 <script type="text/javascript">
 	$(function(){
@@ -35,7 +40,7 @@
 		function con_click(obj){
 		var obj = $(obj);
 		var id = obj.attr('id');
-		$('.consume_money').css('display','none');
+		$('.displays').css('display','none');
 		$('.'+id).css('display','block');
 		$('.color').css('color','');
 		$('.color').css('border-bottom','');

@@ -24,12 +24,14 @@
 			}else{
 				var	icon = 2;
 			}
-			
-   			var index=layer.msg('<span style="font-size: 20px;">'+error+'</span>', {time: 3000, icon:icon});
+			var index=layer.open({title: false,closeBtn:0,btn:0,time:2000,icon:icon,content:'<span style="font-size: 2rem;">'+error+'</span>'});
+   			// var index=layer.msg('<span style="font-size: 20px;">'+error+'</span>', {time: 3000, icon:icon});
 		}else if(success){
-   			var index=layer.msg(success, {time: 3000, icon:1});
+			var index=layer.open({title: false,closeBtn:0,btn:0,time:2000,icon:1,content:'<span style="font-size: 2rem;">'+success+'</span>'});
+   			// var index=layer.msg(success, {time: 3000, icon:1});
 		}else{
-   			var index=layer.msg('错误', {time: 3000, icon:3});
+			var index=layer.open({title: false,closeBtn:0,btn:0,time:2000,icon:3,content:'错误'});
+   			// var index=layer.msg('错误', {time: 3000, icon:3});
 		}
 			layer.style(index, {
 			'color':"#0864C0",

@@ -1,4 +1,16 @@
 <?php 
+function is_mobile(){ 
+      $user_agent = $_SERVER['HTTP_USER_AGENT']; 
+      $mobile_agents = Array("240x320","acer","acoon","acs-","abacho","ahong","airness","alcatel","amoi","android","anywhereyougo.com","applewebkit/525","applewebkit/532","asus","audio","au-mic","avantogo","becker","benq","bilbo","bird","blackberry","blazer","bleu","cdm-","compal","coolpad","danger","dbtel","dopod","elaine","eric","etouch","fly ","fly_","fly-","go.web","goodaccess","gradiente","grundig","haier","hedy","hitachi","htc","huawei","hutchison","inno","ipad","ipaq","ipod","jbrowser","kddi","kgt","kwc","lenovo","lg ","lg2","lg3","lg4","lg5","lg7","lg8","lg9","lg-","lge-","lge9","longcos","maemo","mercator","meridian","micromax","midp","mini","mitsu","mmm","mmp","mobi","mot-","moto","nec-","netfront","newgen","nexian","nf-browser","nintendo","nitro","nokia","nook","novarra","obigo","palm","panasonic","pantech","philips","phone","pg-","playstation","pocket","pt-","qc-","qtek","rover","sagem","sama","samu","sanyo","samsung","sch-","scooter","sec-","sendo","sgh-","sharp","siemens","sie-","softbank","sony","spice","sprint","spv","symbian","tablet","talkabout","tcl-","teleca","telit","tianyu","tim-","toshiba","tsm","up.browser","utec","utstar","verykool","virgin","vk-","voda","voxtel","vx","wap","wellco","wig browser","wii","windows ce","wireless","xda","xde","zte"); 
+      $is_mobile = false; 
+      foreach ($mobile_agents as $device) {
+         if (stristr($user_agent, $device)) {
+              $is_mobile = true; 
+              break; 
+          } 
+      } 
+      return $is_mobile; 
+  }
 /**
  * 管理员权限数据重新排版
  *@param array $node
@@ -8,7 +20,7 @@
  */
 function node_merge($node,$access=null,$pid=0)
 {
-    $arr= [];
+    $arr= array();
     foreach ($node as $k => $v) {
         if(is_array($access) ){
             $v['access'] = in_array($v['id'],$access)? 1 : 2;
@@ -771,7 +783,7 @@ function FS($filename,$data="",$path=""){
 }
 //判断产品种类
 function prod_kind($int){
-  $array = array(1=>'汗蒸',2=>'足浴',3=>'推拿',4=>'spa养生',5=>'中医调理',6=>'最新优惠');
+  $array = array(1=>'汗蒸',2=>'足浴',3=>'推拿',4=>'spa养生',5=>'中医调理',6=>'最新优惠',7=>'团购');
    return $array[$int];
 }
 //判断产品等级
@@ -1267,9 +1279,163 @@ function inquire_name($table,$where,$data='',$type='getField'){
   }
   return $data;
 }
+//活动产品过期自动下线
+function prod_activity(){
+    $product = M('product');
+    $data = $product->where('prod_activity=1')->getField('id,prod_time_end',true);
+    if($data){
+      foreach ($data as $id => $time) {
+        if($time<time()){
+          $arr = array('prod_stastic'=>0);
+          $product->where('id='.$id)->setField($arr);
+        }
+      }
+    }
+
+  }
+//过期订单数据处理
+function update_shopping()
+{
+  if(session('user_list')){
+    $user_list='AND user_id='.session('user_list');
+  }else{
+    $user_list='';
+  }
+  $indent = M('indent');
+  $data = $indent->where('indent_static=1 '.$user_list)->getField('id,reserve_time,indent_static,user_id');
+  foreach ($data as $key => $value) {
+    if($value['reserve_time']<time()){
+      $arr = array('indent_static'=>3,'past_time'=>$value['reserve_time']);
+      if(!$indent->where('id='.$value['id'])->setField($arr)){
+        alogs('Common',4,'用户产品过期数据更改失败',session('user_phone'),'indent_dologs');
+      }
+      
+    }
+  }
+}
 
 
+  //微信充值 、购买支付数据处理
+function orderquery(){
+    Vendor(session('WeChat_pay').'.WxPayApi');
+    if(session('Out_trade_no')&& session('Out_trade_no') != ""){
+      
+      $out_trade_no = session('Out_trade_no');
+      $input = new \WxPayOrderQuery();
+      $input->SetOut_trade_no($out_trade_no);
+      $data = \WxPayApi::orderQuery($input);
+    }
+    $consumer= M('consumer');
+    if($data['result_code']=='SUCCESS'&&$data['trade_state']=='SUCCESS'){
+      $arr = explode('@', $data['attach']);
+      foreach ($arr as $value){
+        if($value){
+          $data[explode('=', $value)[0]] = explode('=', $value)[1];
+        }
+      }
+      unset($data['appid']);
+      unset($data['bank_type']);
+      unset($data['fee_type']);
+      unset($data['is_subscribe']);
+      unset($data['sign']);
+      unset($data['total_fee']);
+      unset($data['attach']);
+      if($data['code'])unset($data['code']);
+      if($data['state'])unset($data['state']);
+      if($data['return_msg'])unset($data['return_msg']);
+      $data['time_end'] = strtotime($data['time_end']);
+      $data['cash_fee'] = $data['cash_fee']/100;
+      $data['nonce_str']=substr(strtolower($data['nonce_str']),-8);
+      session('W_time',date('Y-m-d H:i:s',$data['time_end']));
+      $time = session('W_time');
+      $user_phone = $consumer->where('id='.$data['user_id'])->getField('user_phone');
+      if($data['payment_id']==1&&$data['trade_state']=='SUCCESS'){
+             $consumer->startTrans();
+        unset($data['payment_id']);
+        unset($data['trade_state']);
+        $moneys = $consumer->where('id='.$data['user_id'])->getField('user_money')+$data['cash_fee'];
+        //短息内容拼接
+          $contenr = str_replace('#MONEYS#',$moneys,str_replace('#MONEY#',$data['cash_fee'],str_replace('#DATE#',$time,str_replace('#USERANEM#',$user_phone,FS('Dynamic/smstxt')['payonline']))));
+        //会员等级判断 id获取
+        $members_money =  M('members')->getField('members_money',true);
+        $members_money[end(array_keys($members_money))+1] = $data['cash_fee']+0.01;
+        $members_money = bubble_sort($members_money);
+        $members_id = $members_money[array_search($data['cash_fee']+0.01, $members_money)-1];
+        $members_id =  M('members')->where('members_money='.$members_id)->getField('id');
+        //用户数据读取
+        $consumer_data = $consumer->where('id='.$data['user_id'])->find();
+        //充值写入
+        $user_data = array();
+        $user_data['user_money']=$consumer_data['user_money']+$data['cash_fee'];
+        $user_data['money_amount']=$consumer_data['money_amount']+$data['cash_fee'];
+        //会员等级判断
+        if($consumer_data['members_id']<$members_id){
+          $user_data['members_id']=$members_id;
+        }else{
+          $user_data['members_id']=$consumer_data['members_id'];
+        }
 
 
+      $user_add = $consumer->where('id='.$data['user_id'])->setField($user_data);
+      $recharge = M('recharge')->data($data)->filter('strip_tags')->add();
+      if($user_add&&$recharge){
+              $consumer->commit();
+              texting($user_phone,$contenr);
+          alogs('WxPayApi',2,$contenr,$user_phone,'indent_dologs');
+          session('Out_trade_no',null);
+          }else{
+          alogs('WxPayApi',2,$time.'微信充值'.$consumer_data['user_money']+$data['cash_fee'].'元失败',$user_phone,'indent_dologs');
+              $consumer->rollback();
+          }
 
-?>
+      }else if($data['payment_id']==2&&$data['trade_state']=='SUCCESS'){
+        unset($data['payment_id']);
+        unset($data['trade_state']);
+        $give = M('prod_give');
+        if($data['give_id']){
+          $prod_give_money = $give->where('give_static=1 and id='.$data['give_id'])->getField('prod_give_money');
+          $give->where('give_static=1 and id='.$data['give_id'])->setField('give_static',0);
+          $data['prod_give']=$prod_give_money;
+        }
+          unset($data['give_id']);
+
+        if($data['reserve_time']){
+          $data['reserve_type']=1;
+        }else{
+          $period = inquire_name('period','','','select')[0];
+          $name = session('WeChat_pay');
+          $data['reserve_time'] = $data['time_end']+$period[$name]*86400;
+        }
+        $product  =M('product');
+        $product_data = $product->where('id='.$data['product_id'])->find();
+        if($product_data['prod_give']>0){
+          $give_data = array(
+            'user_id'=>session('user_list'),
+            'prod_id'=>$data['product_id'],
+            'prod_give_money'=>$product_data['prod_give'],
+          );
+          $give_data = $give->add($give_data);
+        }
+
+        $time_end = date('Y-m-d H:i:s',$data['reserve_time']);
+        $chars = "0123456789";  
+        $str ="";
+        for ( $i = 0; $i < 8; $i++ )  {  
+          $str .= substr($chars, mt_rand(0, strlen($chars)-1), 1);  
+        } 
+
+        $data['nonce_str'] = $str;
+        $contenr =str_replace('，可用余额为#MONEYS#元','',str_replace('#CODE#',$data['nonce_str'],str_replace('#TIME#',$time_end,str_replace('#DATE#',$time,str_replace('#MONEY#',$product_data['prod_money'],str_replace('#CROWDID#',$product_data['prod_name'],str_replace('#USERANEM#',$user_phone,FS('Dynamic/smstxt')['withdraw'])))))));
+        if(!$arr['prod_give'])unset($arr['prod_give']);
+        if(M('indent')->data($data)->add()){
+            session('Out_trade_no',null);
+          texting(session('user_phone'),$contenr);
+          alogs('WxPayApi',1,$contenr,session('user_phone'),'indent_dologs');
+        }else{
+          alogs('WxPayApi',2,$time.'微信订单'.session('Out_trade_no').'数据写入失败',$user_phone,'indent_dologs');
+        }
+
+      }
+
+    }
+}

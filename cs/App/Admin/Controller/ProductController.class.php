@@ -13,7 +13,7 @@ class ProductController extends CommonController {
         $data = I();
         $data['prod_time'] = time();
         $data['prod_name'] = trim($data['prod_name']);
-      if(isset($data['prod_name']{36}))$this->error('产品名称文字太长小于12字');
+      if(isset($data['prod_name']{39}))$this->error('产品名称文字小于12字');
           if (time()<strtotime($data['prod_time_end'])&&$data['prod_activity']==1){
             $data['prod_time_end'] = strtotime($data['prod_time_end']);
           }else{
@@ -44,6 +44,7 @@ class ProductController extends CommonController {
    //产品列表
    public function product_list($pag=1)
    {
+    prod_activity();
     $arr = I();
     if($arr['kind']=='kind'){
        $str = 'product_list?';
@@ -74,6 +75,7 @@ class ProductController extends CommonController {
       $this->assign('product_list',$data);
       $this->display();
    }
+
    //产品修改
    public function update()
    {
@@ -91,16 +93,22 @@ class ProductController extends CommonController {
       }else{     
           $data = I();
           if(!$data['prod_activity'])unset($data['prod_time_end']);
-          if(img_errors('prod_img')===true){
-            if(img_type('prod_img')){
-               $data['prod_img'] = str_replace(C('WEB_ROOT'),'',upload_img('prod_img','Product'))[0];
+          $error=$_FILES['prod_img']["error"];
+          if($error!=4){
+            if(img_errors('prod_img')===true){
+              if(img_type('prod_img')){
+                 $data['prod_img'] = str_replace(C('WEB_ROOT'),'',upload_img('prod_img','Product'))[0];
+              }else{
+               $this->error('上传格式不对 只支持pjpeg jpeg gif png 格式');
+              }
             }else{
-             $this->error('上传格式不对 只支持pjpeg jpeg gif png 格式');
+              $this->error(img_errors('prod_img'));
             }
-          }else{
-            $this->error(img_errors('prod_img'));
-          }
           upload_del($data['prod_img_old']);
+          }else{
+            $data['prod_img']=$data['prod_img_old'];
+          }
+
           unset($data['prod_img_old']);
           $data['prod_time_end'] = strtotime($data['prod_time_end']);
           $data['prod_time'] = time();

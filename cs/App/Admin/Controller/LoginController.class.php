@@ -41,7 +41,7 @@ class LoginController extends Controller {
                 $data['password'] = md5($add['password']);
                 $user=M('user_login')->where($data)->find();
                 if($user){
-                  if(!M('user_login')->where('status=1')->find())$this->error('账号已停止使用，请联系管理员');
+                  if($user['status']==0)$this->error('账号已停止使用，请联系管理员');
                   session(null); 
                   session('adminname',$user['username']);
                   session(C('USER_AUTH_KEY'),$user['id']);

@@ -3,7 +3,7 @@
 	<form action="__URL__/recharge_money" method="get">
 		<div class="recharge_money">
 			<div>充值金额</div>
-			<div class="money_img"><div>￥</div><input type="text" name="dispose" value=""><hr></div>
+			<div class="money_img"><div>￥</div><input type="text" name="money" value=""><hr></div>
 			<button>充&nbsp;&nbsp;&nbsp;值</button>
 		</div>	
 	</form>

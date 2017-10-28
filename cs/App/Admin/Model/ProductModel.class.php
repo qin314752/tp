@@ -20,12 +20,13 @@
 
 	     array('prod_number',"/^\d+$/",'已购买人数 为数字',1,'regex'),
 	     array('prod_product_time',"/^\d+$/",'上钟时间为数字',1,'regex'), 
+	     array('prod_give',"/^\d+$/",'赠券金额为数字',2,'regex'), 
 	     array('prod_money','prod_money','团购金额 格式不对',1,'function'), 
 	     array('prod_money_bid','prod_money','门店价金额 格式不对',1,'function'),
 
-	     array('prod_service','1,1000','服务内容文字太长',1,'length'), 
-	     array('prod_range','1,1000','适用范围文字太长',1,'length'), 
-	     array('prod_taboo','1,1000','禁忌提示文字太长',1,'length'), 
+	     // array('prod_service','1,1000','服务内容文字太长',1,'length'), 
+	     // array('prod_range','1,1000','适用范围文字太长',1,'length'), 
+	     // array('prod_taboo','1,1000','禁忌提示文字太长',1,'length'), 
 	   );
 
 	}

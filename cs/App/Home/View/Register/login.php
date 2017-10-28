@@ -49,19 +49,20 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-       <div class="home_login" ><span val="login" style="color: red;">登录</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span val="in">注册</span></div>
+       <div class="home_login" id="home_login">账号登录</div>
          <form action="__URL__/login" method="post">
-             <div class="home_login_list" id="login">
-               <div><span>账号</span><input type="text" name="user_phone" value="" placeholder="请输入手机号"></div>
-               <div><span>密码 </span><input type="password" name="user_password" value="" placeholder="请输入密码"></div>
+             <div class="home_login_list" id="login" >
+               <div><span>账号</span><input  type="text" name="user_phone" value="" placeholder="请输入手机号"></div>
+               <div><span>密码 </span><input  type="password" name="user_password" value="" placeholder="请输入密码"></div>
                <button>登陆</button>
+               <div class="homelist" > <div onclick="blocks(this,'forget')">| 忘记密码</div> <div onclick="blocks(this,'in')">立即注册</div></div>
               </div>
         </form>
          <form action="__URL__/register" method="post">
             <div class="home_login_list" id='in' style="display: none;height:15.5rem;">
-             <div><span style="width: 6rem;">手机号</span><input type="text" name="user_phone" value="" placeholder="请输入手机号"></div>
-             <div><span style="width: 6rem;">密码</span><input type="password" name="user_password" value="" placeholder="请输入密码"></div>
-             <div class="home_code"><span style="width: 6rem;">验证码</span><input type="text" name="user_code" value="" style="width: 35%;" placeholder="请输入验证码">
+             <div><span style="width: 6rem;font-size: 1.6rem;">手机号</span><input type="text" name="user_phone" value="" placeholder="请输入手机号"></div>
+             <div><span style="width: 6rem;font-size: 1.6rem;">密码</span><input type="password" name="user_password" value="" placeholder="请输入密码"></div>
+             <div class="home_code"><span style="width: 6rem;font-size: 1.6rem;">验证码</span><input type="text" name="user_code" value="" style="width: 35%;" placeholder="请输入验证码">
              <div  onclick="butt(this)">获取验证码</div></div>
              <button>注册</button>
             </div> 
@@ -71,10 +72,34 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+function blocks(obj,id){
+  var obj = $(obj);
+  if(id=='in'){
+    $('.home_login_list').css('display','none');
+    $('#'+id).css('display','block');
+    document.getElementById('home_login').innerHTML = '立即注册';
+  }else{
+    layer.open({
+      type: 2,
+      title: false,
+      closeBtn: 0, 
+      shade: [0],
+      offset:['1rem','3%'],
+      shade :0.3,
+      scrollbar:true,
+      area: ['94%', '23rem;'],
+      anim: 0,
+      content: ['__URL__/reset'],
+    }); 
+  }
+
+}
+  </script>
 <script>        
   var mySwiper = new Swiper ('.swiper-container', {
     direction: 'horizontal',
-  autoplay: 1000,
+  autoplay: 2000,
     loop: true,
     pagination: '.swiper-pagination',
   })  
@@ -94,22 +119,7 @@ var mo=function(e){e.preventDefault();};
    document.body.style.overflow='hidden';        
         document.addEventListener("touchmove",mo,false);//禁止页面滑动
 });
-    $('.home_login span').click(function(){
-        var val = $(this).attr('val');
 
-        if(val=='login'){
-          $('#login').css('display','block');
-          $('[val=login]').css('color','red');
-          $('#in').css('display','none'); 
-          $('[val=in]').css('color',''); 
-        }else{
-          $('#login').css('display','none');
-          $('[val=in]').css('color','red');
-          $('[val=login]').css('color','');
-          $('#in').css('display','block');
-        }
-
-    });
       var wait = 60;
       function time(o) {
         if (wait == 0) {

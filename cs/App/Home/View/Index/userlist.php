@@ -23,19 +23,34 @@
 </div>
 	<div id="opinion" style="display: none" >
 			<textarea placeholder="请书写您的意见" name="opinion_centents"></textarea>
-			<button></button>
+			<button type="submit">提交</button>
 	</div>
 
 <include file="Common:foot" />
 <script type="text/javascript">
 	$('#opinion button').click(function(){
 			var centents = $('[name=opinion_centents]').val();
-			$.post('__URL__/opinion',{opinion_centents:centents},function(data){
-			 	if(data=='成功'){
-			 		layer.msg('提交成功',{icon: 1});
-			   		$('[name=opinion_centents]').val('');
-			 	}
-			});
+			if(centents){
+				$.post('__URL__/opinion',{opinion_centents:centents},function(data){
+				 	if(data=='成功'){
+				 		$('[name=opinion_centents]').attr('readonly','readonly');
+				 		layer.msg('提交成功',{icon: 1});
+				   		$('[name=opinion_centents]').val('');
+				 	}
+				});
+			}
 	});
 
+</script>
+<script type="text/javascript">
+$(function() {
+　　if (window.history && window.history.pushState) {
+　　$(window).on('popstate', function () {
+　　window.history.pushState('forward', null, '#');
+　　window.history.forward(1);
+　　});
+　　}
+　　window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+　　window.history.forward(1);
+　　})
 </script>

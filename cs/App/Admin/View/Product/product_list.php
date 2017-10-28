@@ -25,11 +25,12 @@
 				    <select style="width:100px;" name="prod_kind" autocomplete="off">
 							<option value="">---请选择---</option>
 		 					<option value="1" {$kind['prod_kind']==1?selected:''}>汗蒸</option>
-		 					<option value="2" {$kind['prod_kind']==2?selected:''}>足浴</option>
-		 					<option value="3" {$kind['prod_kind']==3?selected:''}>推拿</option>
-		 					<option value="4" {$kind['prod_kind']==4?selected:''}>spa养生</option>
-		 					<option value="5" {$kind['prod_kind']==5?selected:''}>中医调理</option>
+		 					<option value="2" {$kind['prod_kind']==2?selected:''}>推拿spa-足浴</option>
+		 					<option value="3" {$kind['prod_kind']==3?selected:''}>推拿spa-推拿</option>
+		 					<option value="4" {$kind['prod_kind']==4?selected:''}>推拿spa-养生</option>
+		 					<option value="5" {$kind['prod_kind']==5?selected:''}>推拿spa-中医</option>
 		 					<option value="6" {$kind['prod_kind']==6?selected:''}>最新优惠</option>
+		 					<option value="7" {$kind['prod_kind']==7?selected:''}>团购</option>
 					</select>
 					<select style="width:100px" name="prod_grade" autocomplete="off">
 						<option value="">---请选择---</option>
@@ -70,17 +71,18 @@
 						<th style="width:50px;height: 50px;">门市价</th>
 						<th style="width:50px;height: 50px;">产品种类</th>
 						<th style="width:50px;height: 50px;">产品等级</th>
-						<th style="width:70px;height: 50px;">上钟时间</th>
+						<th style="width:50px;height: 50px;">上钟时间</th>
 						<th style="width:50px;height: 50px;">活动产品</th>
 						<th style="width:70px;height: 50px;">结束时间</th>
 						<th style="width:50px;height: 50px;">是否上线</th>
 						<th style="width:100px;height: 50px;">针对部位</th>
-						<th style="width:50px;height: 50px;">已购买人数</th>
+						<th style="width:40px;height: 50px;">已购买人数</th>
 						<th style="width:100px;height: 50px;">服务内容</th>
 						<th style="width:100px;height: 50px;">适用范围</th>
 						<th style="width:100px;height: 50px;">禁忌提示</th>
 						<th style="width:100px;height: 50px;">产品图片</th>
 						<th style="width:70px;height: 50px;">添加时间</th>
+						<th style="width:50px;height: 50px;">赠券金额</th>
 						<th style="width:50px;height: 50px;">操作</th>
 
 					</tr>
@@ -96,8 +98,8 @@
 						<td><?php echo prod_kind($value['prod_kind']); ?></td>
 						<td><?php echo prod_grade($value['prod_grade']); ?></td>
 						<td><?php echo $value['prod_product_time']; ?>分钟</td>
-						<td><?php echo $value['prod_activity'] ?></td>
-						<td><?php echo date('Y-m-d H:i:s',$value['prod_time_end']); ?></td>
+						<td style="color:<?php echo $value['prod_activity']==0?'':'red';?>"><?php echo $value['prod_activity']==1?'活动':'普通'; ?></td>
+						<td><?php if($value['prod_time_end'])echo date('Y-m-d H:i:s',$value['prod_time_end']); ?></td>
 						<td>
 						<if condition="$value['prod_stastic'] eq 1">
 						<span class="label label-success radius">上线</span>
@@ -113,6 +115,7 @@
 						<td><img style="width:100px;height:50px;" src="/<?php echo $value['prod_img']; ?>"></td>
 						
 						<td><?php echo date('Y-m-d H:i:s',$value['prod_time']); ?></td>
+						<td><?php echo $value['prod_give']; ?>元</td>
 						<td class="td-manage">
 						<a title="编辑" href="__URL__/update?id=<?php echo $value['id'] ?>"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
 						<?php   if($value['prod_stastic']){?>
@@ -125,9 +128,6 @@
 					</tr>
 				<?php }?>			
 				</tbody>
-
-
-
 			</table>
 		</article>
 	</div>

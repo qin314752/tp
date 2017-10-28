@@ -28,8 +28,8 @@ class CommonController extends Controller {
                  $this->error(L('_VALID_ACCESS_'));
           }
         }
-        $this->assign("menu_top", $this->show_menu());
 
+        $this->assign("menu_top", $this->show_menu());
     }
 
 

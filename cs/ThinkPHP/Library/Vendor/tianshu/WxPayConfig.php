@@ -27,6 +27,7 @@ class WxPayConfig
 		const MCHID = '1279343601';
 		const KEY = '64bee39e11dccf7050f2f7c08c57a710';
 		const APPSECRET = 'ba0586b87819ef7ace90407e569381a7';
+		// const NOTIFY_URL = "http://tianshutang.com/index.php/Home/Index/notify";
 		
 		
 	
@@ -37,8 +38,8 @@ class WxPayConfig
 	 * API证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert，下载之前需要安装商户操作证书）
 	 * @var path
 	 */
-	const SSLCERT_PATH = '/data/home/bxu2442380780/htdocs/ThinkPHP/Library/Vendor/tianshu/apiclient_cert.pem';
-	const SSLKEY_PATH = '/data/home/bxu2442380780/htdocs/ThinkPHP/Library/Vendor/tianshu/apiclient_key.pem';
+	const SSLCERT_PATH = '/phpstudy/www/ThinkPHP/Library/Vendor/tianshu/apiclient_cert.pem';
+	const SSLKEY_PATH = '/phpstudy/www/ThinkPHP/Library/Vendor/tianshu/apiclient_key.pem';
 	
 	
 	//=======【curl代理设置】===================================
@@ -59,5 +60,5 @@ class WxPayConfig
 	 * 上报等级，0.关闭上报; 1.仅错误出错上报; 2.全量上报
 	 * @var int
 	 */
-	const REPORT_LEVENL = 2;
+	const REPORT_LEVENL = 1;
 }

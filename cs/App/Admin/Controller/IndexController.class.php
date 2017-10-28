@@ -2,6 +2,13 @@
 namespace Admin\Controller;
 class IndexController extends CommonController {
     public function index(){
+      if(I('get.id')){
+         $data = M('indent')->where('music=1')->find();
+          if($data){
+            $str =  M('indent')->where('id='.$data['id'])->setField('music',0);
+            echo $str;
+          }
+      }else{
        $sql = "select name from zc_user_login as l left join zc_role_user as u on l.id=u.user_id and l.username='".session('adminname')."' left join zc_role as r on u.role_id=r.id;";
         $Model = M();
         $data = $Model->query($sql);
@@ -10,10 +17,11 @@ class IndexController extends CommonController {
              $arr = array_filter($value); 
          }
         }
-     $str = residue();
-    $this->assign('name',$arr['name']);
-    $this->assign('str',$str);
-    $this->display();
+       $str = residue();
+       $this->assign('name',$arr['name']);
+       $this->assign('str',$str);
+       $this->display();
+      }
     }
   //清空缓存 
 	public function cache(){
@@ -53,6 +61,7 @@ class IndexController extends CommonController {
     }else if($str>500){
       $this->assign('contents','暂无数据');
     }
+
     $this->display();
   }
   //资金统计
@@ -108,6 +117,7 @@ class IndexController extends CommonController {
       return $money;
   }
 
+ 
 
 
 }

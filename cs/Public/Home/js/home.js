@@ -15,11 +15,7 @@ function alter(){
 	  keyboard: false,
 	});
 	}
-function submit(){
-	if($('#clickme').text())$('[name=reserve_time]').val($('#clickme').text());
-	$('#jsApi').submit();
 
-}
 function abc(obj){
 	var obj = $(obj);
 	var address_id = obj.attr('val');

@@ -56,6 +56,7 @@
 						<th>交易类型</th>
 						<th>用户id</th>
 						<th>现金支付金额</th>
+						<th>赠券金额</th>
 						<th>是否为预定</th>
 						<th>订单状态</th>
 						<th>支付完成时间</th>
@@ -78,6 +79,7 @@
 						<th width="80"><?php echo $value['trade_type']=='JSAPI'?'微信支付':'余额支付'; ?></th>
 						<th width="110"><?php echo inquire_name('consumer','id='.$value['user_id'],'user_phone');?></th>
 						<th width="100"><?php echo $value['cash_fee'] ?>元</th>
+						<th width="100"><?php if($value['prod_give'])echo $value['prod_give'] ?>元</th>
 						<th width="50" style="color:<?php echo $value['reserve_type']==1?'red':'#0864C0';?>"><?php echo $value['reserve_type']==1?'预定':'普通'; ?></th>
 						<th width="80" style="<?php if($value['indent_static']==1){echo 'color:red';}else if($value['indent_static']==2){echo 'color:#0864C0';}else{echo 'color:#909090';}?>">
 							
@@ -95,7 +97,7 @@
 						<?php if($value['indent_static']==1){ ?>
 						<a href="javascript:;" onclick="admin_stop('<?php echo $value['id']?>')"> [ 确认码比对 ] </a><br>
 						<a href="javascript:;" onclick="affirm('<?php echo $value['id']?>')"> [ 确认消费 ] </a><br>
-						<a href="javascript:;" onclick="refund('<?php echo $value['id']?>','<?php echo $value['trade_type']?>')"> [ 取消订单 ] </a>
+						<a href="javascript:;" onclick="refund('<?php echo $value['id']?>','<?php echo $value['trade_type']?>','<?php echo $value['cash_fee']; ?>')"> [ 取消订单 ] </a>
 						<?php }else if($value['indent_static']==2){?>
 						<a href="javascript:;"> [ 已消费 ]</a>
 						<?php }elseif($value['indent_static']==3){?>
@@ -150,16 +152,20 @@ function myrefresh()
 }
 
 
-function refund(id,static){
+function refund(id,static,money){
 	layer.confirm('确认要取消订单吗？',function(index){
-		$.post('__URL__/refund_data',{id:id,trade_type:static},function(data){
-			if(data=='成功'){
-	    		layer.open({title: false,closeBtn: 0,time: 4000,content: '取消订单成功',}); 
-	    		setTimeout('myrefresh()',1000);
-			}else{
-	    		layer.open({title: false,closeBtn: 0,content: data,}); 
-			}
-		});
+		if(money>0){
+			$.post('__URL__/refund_data',{id:id,trade_type:static},function(data){
+				if(data=='成功'){
+		    		layer.open({title: false,closeBtn: 0,time: 4000,content: '取消订单成功',}); 
+		    		setTimeout('myrefresh()',1000);
+				}else{
+		    		layer.open({title: false,closeBtn: 0,content: data,}); 
+				}
+			});
+		}else{
+		    		layer.open({title: false,closeBtn: 0,content: '金额为0元的无法退单'}); 
+		}
 	});
 }
 </script> 

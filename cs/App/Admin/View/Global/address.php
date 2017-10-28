@@ -49,8 +49,10 @@
 								<span >店面名称</span><input disabled="disabled" style="border:1px solid #ddd;height: 20px;margin:auto 10px" type="text" name='address_name' value="<?php echo $value['address_name'] ?>">
 								<span >客服电话</span><input disabled="disabled" style="border:1px solid #ddd;height: 20px;margin:auto 10px" type="text" name='address_phone' value="<?php echo $value['address_phone'] ?>">
 								<span >地址</span><input disabled="disabled" style="border:1px solid #ddd;width:300px;height: 20px;margin:auto 10px" type="text" name='address' value="<?php echo $value['address'] ?>">
-								<a href="javascript:;" class="update" val='<?php echo $value['id']?>'>[ 修改 ]</a> |
-								<a href="javascript:;" onclick="javascript:location.href='__URL__/carousel_del?id=<?php echo $value['id']?>&address_static=0&address_name=<?php echo $value['address_name']?>' " > [ 作废 ]</a>
+								<a href="javascript:;" class="update" val='<?php echo $value['id']?>'>[ 修改 ]</a> 
+								<?php  if($value['id']!=6){?>
+								<a href="javascript:;" onclick="javascript:location.href='__URL__/carousel_del?id=<?php echo $value['id']?>&address_static=0&address_name=<?php echo $value['address_name']?>' " >| [ 作废 ]</a>
+								<?php }else{echo '  汗蒸专用';}?>
 							</div>
 							</form>
 						<?php }?>

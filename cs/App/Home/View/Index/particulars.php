@@ -69,6 +69,11 @@
 </form>
 <include file="Common:foot" />
 <script type="text/javascript">
+	function submit(){
+	if($('#clickme').text())$('[name=reserve_time]').val($('#clickme').text());
+	$('#jsApi').submit();
+
+}
     UE.getEditor('editor');
     UE.getEditor('editor1');
     UE.getEditor('editor2');
@@ -101,4 +106,5 @@ function enshrine(){
 		 });
 	}
 }
+
 </script>

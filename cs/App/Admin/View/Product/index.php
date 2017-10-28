@@ -35,11 +35,12 @@
 								<select style="width:100px;" name="prod_kind">
 										<option value="">---请选择---</option>
 					 					<option value="1">汗蒸</option>
-					 					<option value="2">足浴</option>
-					 					<option value="3">推拿</option>
-					 					<option value="4">spa养生</option>
-					 					<option value="5">中医调理</option>
+					 					<option value="2">推拿spa--足浴</option>
+					 					<option value="3">推拿spa--推拿</option>
+					 					<option value="4">推拿spa--养生</option>
+					 					<option value="5">推拿spa--中医</option>
 					 					<option value="6">最新优惠</option>
+					 					<option value="7">团购</option>
 								</select>
 								</div>								
 
@@ -70,11 +71,23 @@
 										$('#prod_time_end').css('display','none');
 									}
 								</script>
+								<div class="form-label" style="float:left;margin-left:20px;">是否赠券：
+									<input type="checkbox" onclick="give(this.checked)"  autocomplete="off" value="1">
+								</div>
+									<div id="prod_give" style="display:none">&nbsp;<input type="text" class="prod_input" autocomplete="off" name="prod_give"  value="">元</div>
+								<script type="text/javascript">
+									function give(isChecked){
+									 if(isChecked)
+										$('#prod_give').css('display','');
+									 else
+										$('#prod_give').css('display','none');
+									}
+								</script>
 						</div>
 						<div class="row cl dashed "  >
 								<label class="form-label  col-sm-2">上/下线：</label>
-								<div class="form-label " style="float:left;"><input name="prod_stastic" type="radio"  value="1" checked ><span>有效</span></div>
-								<div class="form-label " style="float:left;margin-left:20px;"><input name="prod_stastic" type="radio"  value="0" ><span>无效</span></div>
+								<div class="form-label " style="float:left;"><input name="prod_stastic" type="radio"  value="1" checked ><span>上线</span></div>
+								<div class="form-label " style="float:left;margin-left:20px;"><input name="prod_stastic" type="radio"  value="0" ><span>下线</span></div>
 						</div>
 						
 						
@@ -99,7 +112,6 @@
 						<div class="row cl dashed "  >
 								<label class="form-label  col-sm-2">产品图片：</label>
 								<input type="file" name="prod_img">
-								<!-- <div style="float:left" class="form-label"><div id="zyupload" class="zyupload"></div></div> -->
 						</div>
 						<div class="row cl dashed "  >
 								<label class="form-label  col-sm-2">服务内容：</label>

@@ -7,6 +7,7 @@
 			<div class="logo navbar-logo f-l mr-10 hidden-xs" id="myclock" ></div>
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
+
 					<li class="dropDown dropDown_hover">&nbsp; &nbsp;&nbsp;&nbsp;管理员-<span style="color:red"><?php echo session('adminname'); ?></span> &nbsp;
 					<li><a href="javascript:;" onclick="location.href='__ROOT__/index.php/<?php echo MODULE_NAME;?>/Index/cache'">清除缓存</a></li>
 					</li>
@@ -17,5 +18,16 @@
 	</nav>
 </div>
 </div>
+<audio style="display: none;" id="music" src="__PUBLIC__/Admin/mp3.mp3" controls="controls"></audio>
 </header>
+<script type="text/javascript">
+		setInterval("music()",30000); 
+	function music(){
+		$.get('__ROOT__/index.php/<?php echo MODULE_NAME;?>/Index/index',{id:"music"},function(data){
+			if(data){
+				document.getElementById("music").play();
+			}
+		})
+	}
+</script>
 <!--/_header 作为公共模版分离出去-->

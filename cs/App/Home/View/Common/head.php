@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN" style="font-size: 10px;">
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 	<meta id="scale" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no,minimum-scale=1.0, maximum-scale=1.0">
-	<title><?php echo FS('web_set/web')['wap_title']?></title>
+	<title ><?php echo explode('#',FS('web_set/web')['wap_title'])[session('WeChat')-1]?></title>
 	<script src="__PUBLIC__/Home/js/jquery-3.2.1.min.js"></script>
 	<link href="__PUBLIC__/Home/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="__PUBLIC__/Home/bootstrap/js/bootstrap.min.js"></script>

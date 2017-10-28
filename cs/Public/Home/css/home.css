@@ -80,7 +80,7 @@ input,textarea{
 }
 .brand_menu{
 	width: 100%;
-	height:66rem;
+	height:45rem;
 }
 .brand_menu div {
 	width: 100%;
@@ -284,11 +284,13 @@ input,textarea{
 	height: 3.3rem;
 	margin-left:30%;
 	margin-top: 1rem;
-	background-image: url('../img/button.png');
-	background-size: 100% 100%;
-	background-repeat: no-repeat ;
-    background-position: 50% 50%;
-    border:none;
+	border-radius: 0.4rem;
+	background-color: #CE1D3E;
+	color: #fff;
+	font-size: 1.8rem;
+	text-align: center;
+	line-height: 2.3rem;
+	outline:none;
 }
 /*list*/
 .product_height{
@@ -348,11 +350,12 @@ input,textarea{
 }
 .product_left{
 	float: left;	
-	width:50%;
+	width:55%;
 	height: 6.6rem;
 	margin-left: 0.5rem;
 	float: left;
 	margin-bottom: -0.3rem;
+
 }
 .product_left div{
 	margin-top: 0.3rem;
@@ -385,11 +388,10 @@ input,textarea{
 	color: #57A640;
 }
 .product_right{
-	width:45%;
-	height: 5.5rem;
+	width:40%;
+	height: 6.6rem;
 	/*margin-left: 2%;*/
 	float: right;
-	/*border:1px solid red;*/
 
 
 }
@@ -398,9 +400,8 @@ input,textarea{
 	/*height: 2rem;*/
 	float: right;
 	margin-bottom: 1rem;
-	margin-right:1rem;
+	/*margin-right:1rem;*/
 	
-	/*border:1px solid red;*/
 
 }
 .product_money{
@@ -410,19 +411,20 @@ input,textarea{
 	margin-top: 0.6rem;
 }
 .product_money div{
-	width: 50%;
+	width: 1.5rem;
 	height: 4rem;
 	float: right;
 	background-image: url('../img/renmmoney.png');
 	background-repeat: no-repeat ;
-	background-size: 1.5rem 1.5rem;
-    background-position: 100% 55%;
+	background-size: 100%;
+    background-position:  50%;
+
 }
 .product_money  p{
 	float: right;
 	height: 4rem;
 	line-height: 4rem;
-	font-size: 3.5rem;
+	font-size: 3rem;
     color: #50B34B;
 }
 .product_money_bid {
@@ -508,6 +510,7 @@ input,textarea{
 	margin-top: 4rem;
 	width: 100%;
 	height: 100%;
+	margin-bottom: 2rem;
 } 
 
 .details_service{
@@ -534,7 +537,6 @@ input,textarea{
 
 }
 .details_money{
-	margin-left: 20%;
 	height:3.5rem;
 	background-image: url('../img/renmmoney.png');
 	background-repeat: no-repeat ;
@@ -547,7 +549,9 @@ input,textarea{
 	line-height: 3.5rem;
 	margin-left: 1.5rem;
 	font-size: 3.5rem;
+	float: left;
 	color: #50B34B;
+
 }
 
 .details_moneybid{
@@ -563,12 +567,12 @@ input,textarea{
 }
 .details_payment{
 	width: 30%;
-	height: 4rem;
+	height: 5rem;
 	background-color: #EA9123;
 	color: #fff;
-	font-size: 1.6rem;
+	font-size: 2rem;
 	float: right;
-	margin: 0.6rem 2% 0rem;
+	margin: 1.5rem 2% 0 0; 
 	border:none;
 }
 .blank{
@@ -628,6 +632,8 @@ input,textarea{
 }
 
 /*login*/
+
+
 .home_login{
 	text-align: center;
 	font-size:2rem;
@@ -638,7 +644,7 @@ input,textarea{
 .home_login_list{
 	margin-top:0.4rem; 
 	font-size:1.5rem;
-	height: 11.5rem;
+	height: 11rem;
 }
 .home_login_list div{
 	width: 100%;
@@ -650,13 +656,13 @@ input,textarea{
 	float: left;
 	border:1px solid #fff;
 	width: 5rem;
-	height: 2.2rem;
-	font-size: 1.8rem;
+	height: 2.5rem;
+	font-size: 2rem;
 }
 
 .home_login_list div input{
 	float: left;
-	height: 2.2rem;
+	height: 2.5rem;
 	width: 70%;
 	border:1px solid #A3A3A3;
 	background-color: #fff;
@@ -667,10 +673,22 @@ input,textarea{
 	width: 40%;
 	height: 3rem;
 	/*border:1px solid red;*/
-	margin: 1.8rem 30% 1rem;
+	margin: 1.5rem 30% 0.5rem;
 	background-color: #DC1540;
 	color: #fff;
 	border-radius: 0.3rem;
+}
+.homelist {
+	width:98%;
+	height: auto;
+	font-size:1.5rem;
+}
+ .homelist div{
+	color: #A3A3A3;
+	float: right;
+	width: 8rem;
+	height: 2rem;
+	height: auto;
 }
 .home_code div{ 
 	width: 7rem;
@@ -973,4 +991,121 @@ input,textarea{
 	color: #fff;
 	border:1px solid red;
 }
+.give_data{
+	width: 96%;
+	height: 3rem;
+	margin-left: 2%;
+	margin:0.5rem auto; 
+	border:1px solid #DBDBDC;
+	border-radius: 0.3rem;
+	font-size: 1.8rem;
+	line-height: 3rem;
+	background-color: #FFF;
 
+}
+.give_list{
+	width: 96%;
+	height:6rem;
+	border:1px solid #DBDBDC;
+	border-radius: 0.6rem;
+	margin-left:2%;
+	background-color: #FFF;
+	margin-top: 1rem;
+}
+.give_color{
+	background-color: #F9F9F9;
+}
+
+.give_money{
+	float: left;
+	width: 35%;
+	height: 6rem;
+	text-align: center;
+	/*color: #FF0000;*/
+}
+
+.give_m{
+	height: 4rem;
+	color: #FF0000;
+	line-height: 4rem;
+	font-size: 2.5rem;
+
+}
+.give_n{
+	height: 2rem;
+
+}
+.give_name{
+	float: left;
+	width: 50%;
+	height: 6rem;
+	line-height: 6rem;
+	font-size: 2.5rem;
+}
+#reset{
+	width: 94%;
+	margin-left: 3%;
+	height: auto;
+	margin-top: 3rem;
+	/*border:1px solid red;*/
+}
+.reset_title{
+	height: 4rem;
+	font-size: 2.5rem;
+	text-align: center;
+
+}
+.reset_text{
+	margin-top: 0.5rem;
+}
+#reset input{
+	width: 100%;
+	height: 2.5rem;
+	margin-top: 1rem;
+}
+#reset button{
+	width: 40%;
+	height: 3rem;
+	margin: 1.5rem 30% 0.5rem;
+	background-color: #DC1540;
+	color: #fff;
+	border-radius: 0.3rem;
+	
+}
+#resetp {
+	width: 94%;
+	margin-left: 3%;
+	height: auto;
+	margin-top: 3rem;
+}
+#resetp div{
+	margin-top: 1rem;
+
+}
+#resetp input{
+width: 80%;
+height: 2.5rem;
+}
+#resetp div button{
+	width: 7rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	text-align: center;
+	margin-top: -0.15rem; 
+	margin-left: 0.5rem;
+	background-color: #DC1540;
+	color: #fff;
+	border-radius: 0.2rem;
+}
+#resetp b{
+	font-size: 1.6rem;
+	margin-right: 0.5rem;
+}
+#butt{
+	width: 40%;
+	height: 3rem;
+	margin: 1.5rem 30% 0.5rem;
+	background-color: #DC1540;
+	color: #fff;
+	border-radius: 0.3rem;
+}
